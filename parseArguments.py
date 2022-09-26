@@ -25,7 +25,7 @@ def parse_arguments():
         help="The file for the output. If none is provided the conversion will be displayed in the console.",
     )
     parser.add_argument(
-        "-iff",
+        "-if",
         "--inFormat",
         type=str,
         metavar="<input file format>",
@@ -33,7 +33,7 @@ def parse_arguments():
         help="The file format of the input file. If none is provided the extension of the input file will be used to guess. Supported values are ttl (turtle), json (json-ld), json-ld (json-ld).",
     )
     parser.add_argument(
-        "-off",
+        "-of",
         "--outFormat",
         type=str,
         metavar="<output file format>",
