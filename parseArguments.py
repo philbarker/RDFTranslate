@@ -5,6 +5,7 @@ outputFileName = None
 outputFileFormat = "ttl"
 inputFileFormat = "ttl"
 
+
 def parse_arguments():
     parser = ArgumentParser(
         prog="rdftranslate.py",
@@ -14,14 +15,14 @@ def parse_arguments():
         "inputFileName",
         type=str,
         metavar="<input file name>",
-        help="The file to convert."
+        help="The file to convert.",
     )
     parser.add_argument(
         "outputFileName",
-        nargs = "?",
+        nargs="?",
         type=str,
         metavar="<output file name>",
-        default = outputFileName,
+        default=outputFileName,
         help="The file for the output. If none is provided the conversion will be displayed in the console.",
     )
     parser.add_argument(
