@@ -1,9 +1,12 @@
 from rdflib import Graph
 
+
 class RDFTranslator:
     """Methods to read a file containing a serialization of an RDF graphin one format and display or save it in another format."""
 
-    def __init__(self, inFileName, outFileName=None, inFileFormat=None, outFileFormat=None):
+    def __init__(
+        self, inFileName, outFileName=None, inFileFormat=None, outFileFormat=None
+    ):
         self.g = Graph()
         self.inFileName = inFileName
         self.outFileName = outFileName
@@ -22,7 +25,7 @@ class RDFTranslator:
                 raise ValueError(msg)
         elif "." in self.inFileName:
             ext = self.inFileName.split(".")[1].lower()
-            if  ext in self.knownFormats:
+            if ext in self.knownFormats:
                 self.inFileFormat = ext
             else:
                 msg = f"File extension {ext} does not correspond to a known serialization format."
@@ -42,7 +45,7 @@ class RDFTranslator:
                 raise ValueError(msg)
         elif self.outFileName is not None and "." in self.outFileName:
             ext = self.outFileName.split(".")[1].lower()
-            if  ext in self.knownFormats:
+            if ext in self.knownFormats:
                 self.outFileFormat = ext
             else:
                 msg = f"File extension {ext} does not correspond to a known serialization format."
