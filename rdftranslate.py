@@ -8,3 +8,4 @@ if __name__ == "__main__":
     print(args.outputFileName)
     print(args.outFormat)
     print(args.inFormat)
+    rdfTranslator = RDFTranslator(args.inputFileName)
