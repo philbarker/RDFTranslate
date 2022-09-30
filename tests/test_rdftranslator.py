@@ -83,5 +83,8 @@ def test_read_write_graph(translator1):
     p = URIRef('http://purl.org/dc/elements/1.1/title')
     o = Literal('The Republic')
     assert ((s, p, o)) in t.g
-    t.write_graph()
-    assert False
+    v = t.write_graph()
+    assert v[:48] == "@prefix dc11: <http://purl.org/dc/elements/1.1/>"
+    translator1.outFileName = "tests/test_out.ttl" # write to nowhere
+    v = t.write_graph()
+    assert v == "tests/test_out.ttl"

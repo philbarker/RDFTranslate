@@ -76,6 +76,8 @@ class RDFTranslator:
         # yeah, maybe there could be more checks here.
         if self.outFileName is not None:
             self.g.serialize(destination=self.outFileName, format=self.outFileFormat)
+            return self.outFileName
         else:
+            output = self.g.serialize(format=self.outFileFormat)
             pprint(self.g.serialize(format=self.outFileFormat))
-        return
+            return output
