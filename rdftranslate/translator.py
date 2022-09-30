@@ -1,5 +1,4 @@
 from rdflib import Graph
-from pprint import pprint
 
 knownFormats = {
     "ttl": "turtle",
@@ -80,5 +79,5 @@ class RDFTranslator:
             return self.outFileName
         else:
             output = self.g.serialize(format=self.outFileFormat)
-            pprint(self.g.serialize(format=self.outFileFormat))
+            print(self.g.serialize(format=self.outFileFormat))
             return output
