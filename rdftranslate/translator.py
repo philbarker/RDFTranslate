@@ -2,12 +2,13 @@ from rdflib import Graph
 from pprint import pprint
 
 knownFormats = {
-    "ttl"    : "turtle",
-    "jsonld" : "json-ld",
-    "json"   : "json-ld",
-    "n3"     : "n3",
-    "nt"     : "nt"
+    "ttl": "turtle",
+    "jsonld": "json-ld",
+    "json": "json-ld",
+    "n3": "n3",
+    "nt": "nt",
 }
+
 
 class RDFTranslator:
     """Methods to read a file containing a serialization of an RDF graphin one format and display or save it in another format."""

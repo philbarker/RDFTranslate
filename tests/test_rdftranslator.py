@@ -5,6 +5,7 @@ from rdflib import URIRef, Literal
 
 testFileName = "tests/test.json"
 
+
 @pytest.fixture(scope="function")
 def translator1():
     return RDFTranslator(testFileName, outFileFormat="ttl")
@@ -14,7 +15,7 @@ def test__set_inFileFormat(translator1):
     assert translator1.inFileFormat == "json-ld"  # set from filename ext
     translator1._set_inFileFormat("ttl")
     assert translator1.inFileFormat == "turtle"
-    translator1._set_inFileFormat("N3") # should be case insensitive
+    translator1._set_inFileFormat("N3")  # should be case insensitive
     assert translator1.inFileFormat == "n3"
     translator1.inFileName = "test"  # so that nothing set from file ext
     with pytest.raises(ValueError) as e:
@@ -70,21 +71,20 @@ def test_init(translator1):
     assert translator1.inFileFormat == "json-ld"
     assert translator1.outFileFormat == "turtle"
 
+
 def test_read_write_graph(translator1):
     t = translator1
     with pytest.raises(ValueError) as e:
         t.write_graph()
-    assert (
-        str(e.value) == "Trying to write graph when no graph is stored."
-    )
+    assert str(e.value) == "Trying to write graph when no graph is stored."
     t.read_graph()
     assert len(t.g) == 9
-    s = URIRef('http://example.org/library/the-republic')
-    p = URIRef('http://purl.org/dc/elements/1.1/title')
-    o = Literal('The Republic')
+    s = URIRef("http://example.org/library/the-republic")
+    p = URIRef("http://purl.org/dc/elements/1.1/title")
+    o = Literal("The Republic")
     assert ((s, p, o)) in t.g
     v = t.write_graph()
     assert v[:48] == "@prefix dc11: <http://purl.org/dc/elements/1.1/>"
-    translator1.outFileName = "tests/test_out.ttl" # write to nowhere
+    translator1.outFileName = "tests/test_out.ttl"  # write to nowhere
     v = t.write_graph()
     assert v == "tests/test_out.ttl"
