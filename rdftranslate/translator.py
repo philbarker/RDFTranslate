@@ -6,6 +6,8 @@ knownFormats = {
     "json": "json-ld",
     "n3": "n3",
     "nt": "nt",
+    "xml": "xml",
+    "rdf/xml": "xml"
 }
 
 
