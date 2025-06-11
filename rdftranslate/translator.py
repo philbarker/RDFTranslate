@@ -9,12 +9,10 @@ knownFormats = {
     "nt": "nt",
     "xml": "xml",
     "rdf/xml": "xml",
-    "trig": "trig"
+    "trig": "trig",
 }
 
-namedGraphFormats = [
-    "json-ld", "trig", "nt"
-]
+namedGraphFormats = ["json-ld", "trig", "nt"]
 
 
 class RDFTranslator:
@@ -83,7 +81,7 @@ class RDFTranslator:
             raise ValueError(msg)
         # yeah, maybe there could be more checks here.
         f = self.outFileFormat
-        if f in namedGraphFormats :
+        if f in namedGraphFormats:
             if self.outFileName is None:
                 output = self.ds.serialize(format=f)
                 print(output)
@@ -91,14 +89,14 @@ class RDFTranslator:
             else:
                 self.ds.serialize(destination=self.outFileName, format=f)
                 return self.outFileName
-        else :
+        else:
             output = ""
             for graph in self.ds.graphs():
                 graphName = str(graph.identifier)
                 if graphName == "urn:x-rdflib:default":
                     output = output + graph.serialize(format=self.outFileFormat)
                 else:
-                    output = output + "\n# Graph: "+str(graph.identifier)+"\n"
+                    output = output + "\n# Graph: " + str(graph.identifier) + "\n"
                     output = output + graph.serialize(format=self.outFileFormat)
             if self.outFileName is None:
                 print(output)

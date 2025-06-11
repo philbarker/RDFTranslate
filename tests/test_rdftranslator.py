@@ -89,6 +89,7 @@ def test_read_write_graph(translator1):
     v = t.write_graph()
     assert v == "tests/test_out.ttl"
 
+
 @pytest.fixture(scope="function")
 def translator2():
     return RDFTranslator("tests/namedGraph.json", outFileFormat="ttl")
@@ -112,8 +113,11 @@ def test_read_write_graph(translator2):
     assert ((s, p, o, g)) in t.ds
     v = t.write_graph()
     assert "# Graph: https://example.edu/g/001" in v
-    assert "<https://example.edu/g/001> ceterms:lifeCycleStatusType lifeCycle:Developing ." in v
+    assert (
+        "<https://example.edu/g/001> ceterms:lifeCycleStatusType lifeCycle:Developing ."
+        in v
+    )
     assert "    ceterms:lifeCycleStatusType lifeCycle:Active ;" in v
-    t.outFileName = "tests/namedGraph_Out.ttl" 
+    t.outFileName = "tests/namedGraph_Out.ttl"
     v = t.write_graph()
     assert v == "tests/namedGraph_Out.ttl"
