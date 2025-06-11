@@ -1,0 +1,22 @@
+  {
+    "@id": "https://example.edu/graph/g001",
+    "@context": "https://credreg.net/ctdl/schema/context/json",
+    "ceterms:lifeCycleStatusType": "lifeCycle:Developing",
+    "@graph": [
+      {
+        "@id": "https://example.edu/registry/ce-01234567-abcd-abcd-abcd-00000000001",
+        "@type": "ceterms:CredentialOrganization",
+        "name": "Some University",
+        "owns": "https://example.edu/registry/ce-01234567-abcd-abcd-abcd-00000000002"
+      },
+      {
+        "@id": "https://example.edu/registry/ce-01234567-abcd-abcd-abcd-00000000002",
+        "@type": "ceterms:Credential",
+        "ceterms:name": {
+          "en": "New Credential"
+        },
+        "ceterms:lifeCycleStatusType": "lifeCycle:Active"
+
+      }
+    ]
+  }
