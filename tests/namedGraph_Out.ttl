@@ -1,0 +1,16 @@
+@prefix ceterms: <https://purl.org/ctdl/terms/> .
+@prefix lifeCycle: <https://purl.org/ctdl/vocabs/lifeCycle/> .
+
+<https://example.edu/g/001> ceterms:lifeCycleStatusType lifeCycle:Developing .
+
+
+# Graph: https://example.edu/g/001
+@prefix ceterms: <https://purl.org/ctdl/terms/> .
+@prefix lifeCycle: <https://purl.org/ctdl/vocabs/lifeCycle/> .
+
+<https://example.edu/r/001> a ceterms:CredentialOrganization .
+
+<https://example.edu/r/002> a ceterms:Credential ;
+    ceterms:lifeCycleStatusType lifeCycle:Active ;
+    ceterms:name "New Credential"@en .
+

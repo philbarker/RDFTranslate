@@ -14,7 +14,7 @@ if __name__ == "__main__":
         inFileFormat=iff,
         outFileFormat=off,
     )
-    print(f"Converting {t.inFileName} from {t.inFileFormat} to {t.outFileFormat}")
+    print(f"Converting {t.inFileName} from {t.inFileFormat} to {t.outFileFormat}\n")
     t.read_graph()
     if ofn is not None:
         print(f"... saving data in {ofn}")

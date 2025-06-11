@@ -1,14 +1,20 @@
-from rdflib import Graph
+from rdflib import Graph, Dataset
 
 knownFormats = {
     "ttl": "turtle",
     "jsonld": "json-ld",
     "json": "json-ld",
+    "json-ld": "json-ld",
     "n3": "n3",
     "nt": "nt",
     "xml": "xml",
-    "rdf/xml": "xml"
+    "rdf/xml": "xml",
+    "trig": "trig"
 }
+
+namedGraphFormats = [
+    "json-ld", "trig", "nt"
+]
 
 
 class RDFTranslator:
@@ -17,7 +23,7 @@ class RDFTranslator:
     def __init__(
         self, inFileName, outFileName=None, inFileFormat=None, outFileFormat=None
     ):
-        self.g = Graph()
+        self.ds = Dataset()
         self.inFileName = inFileName
         self.outFileName = outFileName
         self.knownFormats = knownFormats
@@ -67,19 +73,37 @@ class RDFTranslator:
     def read_graph(self):
         """Read input file, store as graph."""
         # yeah, maybe there could be more checks here.
-        self.g.parse(self.inFileName, format=self.inFileFormat)
+        self.ds.parse(self.inFileName, format=self.inFileFormat)
         return
 
     def write_graph(self):
         """Write graph to output file or console."""
-        if len(self.g) == 0:
+        if len(self.ds) == 0:
             msg = "Trying to write graph when no graph is stored."
             raise ValueError(msg)
         # yeah, maybe there could be more checks here.
-        if self.outFileName is not None:
-            self.g.serialize(destination=self.outFileName, format=self.outFileFormat)
-            return self.outFileName
-        else:
-            output = self.g.serialize(format=self.outFileFormat)
-            print(self.g.serialize(format=self.outFileFormat))
-            return output
+        f = self.outFileFormat
+        if f in namedGraphFormats :
+            if self.outFileName is None:
+                output = self.ds.serialize(format=f)
+                print(output)
+                return output
+            else:
+                self.ds.serialize(destination=self.outFileName, format=f)
+                return self.outFileName
+        else :
+            output = ""
+            for graph in self.ds.graphs():
+                graphName = str(graph.identifier)
+                if graphName == "urn:x-rdflib:default":
+                    output = output + graph.serialize(format=self.outFileFormat)
+                else:
+                    output = output + "\n# Graph: "+str(graph.identifier)+"\n"
+                    output = output + graph.serialize(format=self.outFileFormat)
+            if self.outFileName is None:
+                print(output)
+                return output
+            else:
+                with open(self.outFileName, "w") as outFile:
+                    outFile.write(output)
+                return self.outFileName

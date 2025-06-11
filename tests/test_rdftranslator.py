@@ -65,7 +65,7 @@ def test__set_outFileFormat(translator1):
 
 
 def test_init(translator1):
-    assert len(translator1.g) == 0
+    assert len(translator1.ds) == 0
     assert translator1.inFileName == testFileName
     assert translator1.outFileName == None
     assert translator1.inFileFormat == "json-ld"
@@ -78,13 +78,42 @@ def test_read_write_graph(translator1):
         t.write_graph()
     assert str(e.value) == "Trying to write graph when no graph is stored."
     t.read_graph()
-    assert len(t.g) == 9
+    assert len(t.ds) == 9
     s = URIRef("http://example.org/library/the-republic")
     p = URIRef("http://purl.org/dc/elements/1.1/title")
     o = Literal("The Republic")
-    assert ((s, p, o)) in t.g
+    assert ((s, p, o)) in t.ds
     v = t.write_graph()
     assert v[:46] == "@prefix dc: <http://purl.org/dc/elements/1.1/>"
-    translator1.outFileName = "tests/test_out.ttl"  # write to nowhere
+    t.outFileName = "tests/test_out.ttl"  # write to nowhere
     v = t.write_graph()
     assert v == "tests/test_out.ttl"
+
+@pytest.fixture(scope="function")
+def translator2():
+    return RDFTranslator("tests/namedGraph.json", outFileFormat="ttl")
+
+
+def test_read_write_graph(translator2):
+    t = translator2
+    with pytest.raises(ValueError) as e:
+        t.write_graph()
+    assert str(e.value) == "Trying to write graph when no graph is stored."
+    t.read_graph()
+    assert len(t.ds) == 5
+    s = URIRef("https://example.edu/g/001")
+    p = URIRef("https://purl.org/ctdl/terms/lifeCycleStatusType")
+    o = URIRef("https://purl.org/ctdl/vocabs/lifeCycle/Developing")
+    assert ((s, p, o)) in t.ds
+    s = URIRef("https://example.edu/r/002")
+    p = URIRef("https://purl.org/ctdl/terms/lifeCycleStatusType")
+    o = URIRef("https://purl.org/ctdl/vocabs/lifeCycle/Active")
+    g = URIRef("https://example.edu/g/001")
+    assert ((s, p, o, g)) in t.ds
+    v = t.write_graph()
+    assert "# Graph: https://example.edu/g/001" in v
+    assert "<https://example.edu/g/001> ceterms:lifeCycleStatusType lifeCycle:Developing ." in v
+    assert "    ceterms:lifeCycleStatusType lifeCycle:Active ;" in v
+    t.outFileName = "tests/namedGraph_Out.ttl" 
+    v = t.write_graph()
+    assert v == "tests/namedGraph_Out.ttl"
