@@ -84,7 +84,7 @@ def test_read_write_graph(translator1):
     o = Literal("The Republic")
     assert ((s, p, o)) in t.g
     v = t.write_graph()
-    assert v[:48] == "@prefix dc11: <http://purl.org/dc/elements/1.1/>"
+    assert v[:46] == "@prefix dc: <http://purl.org/dc/elements/1.1/>"
     translator1.outFileName = "tests/test_out.ttl"  # write to nowhere
     v = t.write_graph()
     assert v == "tests/test_out.ttl"
