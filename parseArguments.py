@@ -31,7 +31,7 @@ def parse_arguments():
         type=str,
         metavar="<input file format>",
         default=inputFileFormat,
-        help="The file format of the input file. If none is provided the extension of the input file will be used to guess. Supported values are ttl (turtle), json (json-ld), json-ld (json-ld).",
+        help="The file format of the input file. If none is provided the extension of the input file will be used to guess. Supported values are jsonld, json, json-ld (all json-ld); n3, nt, rdf/xml and trig",
     )
     parser.add_argument(
         "-off",

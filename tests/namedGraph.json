@@ -1,0 +1,21 @@
+  {
+    "@id": "https://example.edu/g/001",
+    "@context": "https://credreg.net/ctdl/schema/context/json",
+    "ceterms:lifeCycleStatusType": "lifeCycle:Developing",
+    "@graph": [
+      {
+        "@id": "https://example.edu/r/001",
+        "@type": "ceterms:CredentialOrganization",
+        "name": "Some University",
+        "owns": "https://example.edu/r/002"
+      },
+      {
+        "@id": "https://example.edu/r/002",
+        "@type": "ceterms:Credential",
+        "ceterms:name": {
+          "en": "New Credential"
+        },
+        "ceterms:lifeCycleStatusType": "lifeCycle:Active"
+      }
+    ]
+  }
